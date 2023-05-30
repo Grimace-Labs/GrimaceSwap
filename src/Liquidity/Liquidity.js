@@ -63,7 +63,7 @@ function Liquidity(props) {
         alignItems="flex-end"
       >
         <p>
-          Alternative Uniswap Interface | Get AUT for use in the bakerloo testnet{" "}
+        Grimace Swap | Get AUT for use in the bakerloo testnet{" "}
           <a href="https://faucet.bakerloo.autonity.network/">here</a>
         </p>
       </Grid>

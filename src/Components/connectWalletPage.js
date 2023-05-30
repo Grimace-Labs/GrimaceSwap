@@ -49,7 +49,7 @@ function ConnectWalletPage() {
     <div>
       <div className="Title">
         <h1 className="navbar-logo">
-          Alternative Uniswap Interface
+        Grimace Swap
         </h1>
       </div>
 
@@ -74,7 +74,7 @@ function ConnectWalletPage() {
         alignItems="flex-end"
       >
         <p>
-          Alternative Uniswap Interface | Get AUT for use in the bakerloo testnet{" "}
+        Grimace Swap | Get AUT for use in the bakerloo testnet{" "}
           <a href="https://faucet.bakerloo.autonity.network/">here</a>
         </p>
       </Grid>
