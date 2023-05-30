@@ -206,7 +206,7 @@ function CoinSwapper(props) {
     if (approveIsRequired){
       return approveToken(
         coin1.address, 
-        kibbleSwapRouter, 
+        dogechainRouter, 
         props.network.signer
       ).then(() => {
         setLoading(false);
