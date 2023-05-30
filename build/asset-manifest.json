@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/GrimaceSwap/static/css/main.04d46273.css",
+    "main.js": "/GrimaceSwap/static/js/main.fbe0e108.js",
+    "static/js/787.6b1a131c.chunk.js": "/GrimaceSwap/static/js/787.6b1a131c.chunk.js",
+    "static/media/dots.png": "/GrimaceSwap/static/media/dots.527e97fb490adf3dc63f.png",
+    "index.html": "/GrimaceSwap/index.html",
+    "main.04d46273.css.map": "/GrimaceSwap/static/css/main.04d46273.css.map",
+    "main.fbe0e108.js.map": "/GrimaceSwap/static/js/main.fbe0e108.js.map",
+    "787.6b1a131c.chunk.js.map": "/GrimaceSwap/static/js/787.6b1a131c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.04d46273.css",
+    "static/js/main.fbe0e108.js"
+  ]
+}

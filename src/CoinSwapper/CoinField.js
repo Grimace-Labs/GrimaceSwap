@@ -8,11 +8,8 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(1),
     minHeight: "80px",
-    backgroundColor: COLORS.grey[50],
+    backgroundColor: '#1A1928',
     borderRadius: theme.spacing(2),
-    borderColor: COLORS.grey[300],
-    borderWidth: "1px",
-    borderStyle: "solid",
   },
   container_input: {
     padding: theme.spacing(1),
@@ -42,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputBase: {
     textAlign: "right",
+    color: 'white',
   },
 }));
 

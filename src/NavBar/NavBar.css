@@ -1,27 +1,39 @@
-.Title {
-  background: #f4f4f4;
-  height: 50px;
-  text-align: left;
-  margin-left: 25%;
-  font-size: 1rem;
+.nav {
+  width: 95vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  border-radius: 50px;
+  padding: 0 20px;
+  height: 56px;
+  border: 2px solid rgba(113, 83, 217, 1);
+  margin-top: 30px;
+  margin-bottom:80px;
 }
 
+.Title {
+  color: white;
+  text-align: left;
+  font-size: 1rem;
+  position: absolute;
+}
+
+
 .NavbarItems {
-  background: #f4f4f4;
-  height: 80px;
+  margin: 0 auto;
   display: flex;
   justify-content: left;
   align-items: left;
   font-size: 1.2rem;
-  width: 75%;
   text-align: left;
-  margin-left: 25%;
 }
 
 .navbar-logo {
-  color: rgb(226, 23, 23);
   justify-self: start;
-  margin-left: 0px;
+  margin:0;
   cursor: pointer;
 }
 
@@ -30,19 +42,24 @@
 }
 
 .nav-menu {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  grid-gap: 50px;
+  display: flex;
+  flex-direction: row;
+  min-width: 200px;
   list-style: none;
   text-align: left;
-  justify-content: end;
-  padding-top: 1rem;
+  justify-content: space-between;
   padding-left: 0rem;
   font-size: 25px;
+  margin-bottom:0;
+}
+
+.nav-menu li {
+  display: flex;
+  align-items: center;
 }
 
 .nav-links {
-  color: rgb(73, 73, 73);
+  color: white;
   text-decoration: none;
 }
 
@@ -55,8 +72,9 @@
 
 .nav-links:hover {
   color: white;
-  background-color: red;
+  background-color: rgba(113, 83, 217, 1);
+  border: 10px solid rgba(113, 83, 217, 1);
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 20px;
   transition: all 0.2s ease-out;
 }

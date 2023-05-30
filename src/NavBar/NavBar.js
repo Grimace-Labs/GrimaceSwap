@@ -8,7 +8,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <nav>
+      <nav className="nav">
         <div className="Title">
           <h1 className="navbar-logo">
             Grimace Swap

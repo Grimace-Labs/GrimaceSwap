@@ -31,10 +31,19 @@ import COINS from "../constants/coins";
 import * as chains from "../constants/chains";
 
 const styles = (theme) => ({
+  allContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: '0 20px'
+  },
   paperContainer: {
+    backgroundColor: '#2F2A70',
     borderRadius: theme.spacing(2),
-    padding: theme.spacing(1),
+    border: '2px solid rgba(113, 83, 217, 1)',
+    padding: theme.spacing(3),
     paddingBottom: theme.spacing(3),
+    color: 'white'
   },
   switchButton: {
     zIndex: 1,
@@ -48,6 +57,7 @@ const styles = (theme) => ({
     textAlign: "center",
     padding: theme.spacing(0.5),
     marginBottom: theme.spacing(1),
+
   },
   hr: {
     width: "100%",
@@ -310,7 +320,7 @@ function CoinSwapper(props) {
   });
 
   return (
-    <div>
+    <div className={classes.allContainer}>
       {/* Dialog Windows */}
       <CoinDialog
         open={dialog1Open}
@@ -329,7 +339,13 @@ function CoinSwapper(props) {
         />
 
       {/* Coin Swapper */}
-      <Container maxWidth="xs">
+      <iframe 
+          src="https://dexscreener.com/dogechain/0x1aAD352a2190B399Bb3cfD4d5E4B0bf6EFA33C0e?embed=1&theme=dark&trades=0&info=0"
+          title="MyFrame"
+          width="800px"
+          height="600px"             
+      ></iframe>
+      <Container maxWidth="xs" className={classes.swapContainer}>
         <Paper className={classes.paperContainer}>
           <Typography variant="h5" className={classes.title}>
             Swap Coins

@@ -1,5 +1,7 @@
 body {
-  background-color: #f4f4f4;
+  background-color: rgba(23, 25, 66, 1);
+  background-image: url('img/dots.png');
+  background-size: 100%;
   color: #555555;
 
   font-family: Arial, Helvetica, sans-serif;
@@ -9,6 +11,10 @@ body {
 
   line-height: 1em;
   margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
 }
 
 .outer {
