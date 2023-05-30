@@ -11,7 +11,7 @@ class NavBar extends Component {
       <nav className="nav">
         <div className="Title">
           <h1 className="navbar-logo">
-            Grimace Swap
+            Alpha test
           </h1>
         </div>
 
