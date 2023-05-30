@@ -74,8 +74,8 @@ const GÖRLICoins = [
 const DOGECHAINCoins = [
   {
     name: "Doge",
-    abbr: "WDOGE",
-    address: "", // Weth address is fetched from the router
+    abbr: "DOGE",
+    address: "", // eth address is fetched from the router
   },
   {
     name: "Grimace",

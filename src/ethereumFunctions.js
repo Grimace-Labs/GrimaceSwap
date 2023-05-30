@@ -69,6 +69,21 @@ export async function getDecimals(token) {
     return decimals;
 }
 
+export async function getAllowance(contractAddress, ownerAddress, spenderAddress, signer){
+  const token = new Contract(contractAddress, ERC20.abi, signer);
+
+  try {
+    // Call the allowance method on the contract to get the allowance amount
+    const allowance = await token.allowance(ownerAddress, spenderAddress);
+
+    // Convert the allowance value from BigNumber to a human-readable format
+    return allowance;
+  } catch (error) {
+    console.error('Error retrieving allowance:', error);
+    return null;
+  }
+}
+
 // This function returns an object with 2 fields: `balance` which container's the account's balance in the particular token,
 // and `symbol` which is the abbreviation of the token name. To work correctly it must be provided with 4 arguments:
 //    `accountAddress` - An Ethereum address of the current user's account
@@ -99,6 +114,7 @@ export async function getBalanceAndSymbol(
 
       return {
         balance: balanceRaw*10**(-tokenDecimals),
+        balanceRaw: balanceRaw,
         symbol: symbol,
       };
     }
@@ -107,6 +123,15 @@ export async function getBalanceAndSymbol(
     console.log (error)
     return false;
   }
+}
+
+export async function approveToken(contractAddress, spenderAddress, signer){
+  const token = new ethers.Contract(contractAddress, ERC20.abi, signer);
+
+  const maxUint256 = ethers.constants.MaxUint256;
+  await token.approve(spenderAddress, maxUint256).then(async (tx) => {
+    await tx.wait();
+  })
 }
 
 // This function swaps two particular tokens / AUT, it can handle switching from AUT to ERC20 token, ERC20 token to AUT, and ERC20 token to ERC20 token.
@@ -139,8 +164,6 @@ export async function swapTokens(
     tokens
   );
 
-  // @todo
-  // await token1.approve(routerContract.address, amountIn);
   const wethAddress = await routerContract.WETH();
 
   if (address1 === wethAddress) {
