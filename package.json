@@ -24,7 +24,7 @@
     "web-vitals": "^1.0.1",
     "web3": "^1.3.6"
   },
-  "homepage": "https://yzevm.github.io/GrimaceSwap/",
+  "homepage": "https://grimace-labs.github.io/GrimaceSwap/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
