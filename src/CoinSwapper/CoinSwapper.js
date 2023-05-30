@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -11,24 +11,18 @@ import SwapVerticalCircleIcon from "@material-ui/icons/SwapVerticalCircle";
 import { useSnackbar } from "notistack";
 import LoopIcon from "@material-ui/icons/Loop";
 import {
-  getAccount,
-  getFactory,
-  getProvider,
-  getRouter,
-  getSigner,
-  getNetwork,
   getAmountOut,
   getBalanceAndSymbol,
-  getWeth,
   swapTokens,
   getReserves,
+  getAllowance,
+  approveToken
 } from "../ethereumFunctions";
 import CoinField from "./CoinField";
 import CoinDialog from "./CoinDialog";
 import LoadingButton from "../Components/LoadingButton";
 import WrongNetwork from "../Components/wrongNetwork";
-import COINS from "../constants/coins";
-import * as chains from "../constants/chains";
+import { dogechainRouter } from "../constants/chains";
 
 const styles = (theme) => ({
   allContainer: {
@@ -77,11 +71,12 @@ const useStyles = makeStyles(styles);
 function CoinSwapper(props) {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+  const [approveIsRequired, setApproveRequired] = useState(false);
 
   // Stores a record of whether their respective dialog window is open
   const [dialog1Open, setDialog1Open] = React.useState(false);
   const [dialog2Open, setDialog2Open] = React.useState(false);
-  const [wrongNetworkOpen, setwrongNetworkOpen] = React.useState(false);
+  const [wrongNetworkOpen] = React.useState(false);
 
   // Stores data about their respective coin
   const [coin1, setCoin1] = React.useState({
@@ -136,6 +131,7 @@ function CoinSwapper(props) {
 
   // Determines whether the button should be enabled or not
   const isButtonEnabled = () => {
+    if (approveIsRequired) return true;
 
     // If both coins have been selected, and a valid float has been entered which is less than the user's balance, then return true
     const parsedInput1 = parseFloat(field1Value);
@@ -168,6 +164,14 @@ function CoinSwapper(props) {
           symbol: data.symbol,
           balance: data.balance,
         });
+
+        if (props.network.weth.address !== address){
+          getAllowance(address, props.network.account, dogechainRouter, props.network.signer).then((allowance) => {
+            if (!allowance) return;
+  
+            setApproveRequired(allowance.lt(data.balanceRaw));
+          });
+        }
       });
     }
   };
@@ -198,6 +202,24 @@ function CoinSwapper(props) {
   const swap = () => {
     console.log("Attempting to swap tokens...");
     setLoading(true);
+
+    if (approveIsRequired){
+      return approveToken(
+        coin1.address, 
+        kibbleSwapRouter, 
+        props.network.signer
+      ).then(() => {
+        setLoading(false);
+        setApproveRequired(false);
+        enqueueSnackbar("Approved", { variant: "success" });
+      }).catch((e) => {
+        setLoading(false);
+        enqueueSnackbar("Approve Failed (" + e.message + ")", {
+          variant: "error",
+          autoHideDuration: 10000,
+        });
+      });
+    }
 
     swapTokens(
       coin1.address,
@@ -419,7 +441,7 @@ function CoinSwapper(props) {
               onClick={swap}
             >
               <LoopIcon />
-              Swap
+              { approveIsRequired ? `Approve ${coin1.symbol}` : "swap" }
             </LoadingButton>
           </Grid>
         </Paper>
