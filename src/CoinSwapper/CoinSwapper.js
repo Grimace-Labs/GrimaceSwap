@@ -25,6 +25,7 @@ import CoinDialog from "./CoinDialog";
 import LoadingButton from "../Components/LoadingButton";
 import WrongNetwork from "../Components/wrongNetwork";
 import { dogechainRouter } from "../constants/chains";
+import { DOGE, GRIMACE } from "../constants/coins";
 
 const styles = (theme) => ({
   allContainer: {
@@ -370,25 +371,13 @@ function CoinSwapper(props) {
     return () => clearTimeout(coinTimeout);
   });
 
+    useEffect(() => {
+    setCoin1(DOGE);
+    setCoin2(GRIMACE);
+  }, []);
+
   return (
     <div className={classes.allContainer}>
-      {/* Dialog Windows */}
-      <CoinDialog
-        open={dialog1Open}
-        onClose={onToken1Selected}
-        coins={props.network.coins}
-        props={props.network.signer}
-      />
-      <CoinDialog
-        open={dialog2Open}
-        onClose={onToken2Selected}
-        coins={props.network.coins}
-        signer={props.network.signer}
-      />
-      <WrongNetwork
-        open={wrongNetworkOpen}
-        />
-
       {/* Coin Swapper */}
       <iframe 
           src="https://dexscreener.com/dogechain/0x1aAD352a2190B399Bb3cfD4d5E4B0bf6EFA33C0e?embed=1&theme=dark&trades=0&info=0"

@@ -71,18 +71,22 @@ const GÖRLICoins = [
   },
 ]
 
-const GRIMACE = {
+export const GRIMACE = {
   name: "Grimace",
   abbr: "Grimace",
+  symbol: "GRIMACE",
   address: "0x2f90907fD1DC1B7a484b6f31Ddf012328c2baB28",
 }
 
+export const DOGE = {
+  name: "Doge",
+  abbr: "DOGE",
+  symbol: "DOGE",
+  address: "", // eth address is fetched from the router
+}
+
 const DOGECHAINCoins = [
-  {
-    name: "Doge",
-    abbr: "DOGE",
-    address: "", // eth address is fetched from the router
-  },
+  DOGE,
   GRIMACE
 ]
 
