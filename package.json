@@ -31,6 +31,7 @@
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
+    "clean": "rimraf ./build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1"
   }
 }
