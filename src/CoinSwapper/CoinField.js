@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 CoinField.propTypes = {
-  onClick: PropTypes.func.isRequired,
   symbol: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
@@ -147,7 +146,7 @@ export default function CoinField(props) {
   //      activeField - boolean - Whether text can be entered into this field or not
 
   const classes = useStyles();
-  const { onClick, symbol, value, onChange, activeField } = props;
+  const { symbol, value, onChange, activeField } = props;
 
   return (
     <div className={classes.container}>
@@ -163,11 +162,9 @@ export default function CoinField(props) {
           <Fab
             size="small"
             variant="extended"
-            onClick={onClick}
             className={classes.fab}
           >
             {symbol}
-            <ExpandMoreIcon />
           </Fab>
         </Grid>
 

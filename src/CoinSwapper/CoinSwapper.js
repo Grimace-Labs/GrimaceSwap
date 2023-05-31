@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import BigNumber from "bignumber.js";
+
 import {
   Container,
   Grid,
@@ -19,10 +22,10 @@ import {
   approveToken
 } from "../ethereumFunctions";
 import CoinField from "./CoinField";
-import CoinDialog from "./CoinDialog";
 import LoadingButton from "../Components/LoadingButton";
 import WrongNetwork from "../Components/wrongNetwork";
 import { dogechainRouter } from "../constants/chains";
+import { DOGE, GRIMACE } from "../constants/coins";
 
 const styles = (theme) => ({
   allContainer: {
@@ -72,10 +75,9 @@ function CoinSwapper(props) {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [approveIsRequired, setApproveRequired] = useState(false);
+  const [priceImpact, setPriceImpact] = useState('0');
 
   // Stores a record of whether their respective dialog window is open
-  const [dialog1Open, setDialog1Open] = React.useState(false);
-  const [dialog2Open, setDialog2Open] = React.useState(false);
   const [wrongNetworkOpen] = React.useState(false);
 
   // Stores data about their respective coin
@@ -91,7 +93,8 @@ function CoinSwapper(props) {
   });
 
   // Stores the current reserves in the liquidity pool between coin1 and coin2
-  const [reserves, setReserves] = React.useState(["0.0", "0.0"]);
+  const reverseDefaultValue = '0.0';
+  const [reserves, setReserves] = React.useState([reverseDefaultValue, reverseDefaultValue]);
 
   // Stores the current value of their respective text box
   const [field1Value, setField1Value] = React.useState("");
@@ -146,57 +149,30 @@ function CoinSwapper(props) {
     );
   };
 
-  // Called when the dialog window for coin1 exits
-  const onToken1Selected = (address) => {
-    // Close the dialog window
-    setDialog1Open(false);
+  //Fetch allowance if coin or account changed.
+  useEffect(() => {
+    if (
+      !coin1.address || 
+      !props.network.account ||
+      !props.network.provider ||
+      !props.network.signer ||
+      !props.network.weth.address ||
+      !props.network.coins
+    ) return;
 
-    // If the user inputs the same token, we want to switch the data in the fields
-    if (address === coin2.address) {
-      switchFields();
-    }
-    // We only update the values if the user provides a token
-    else if (address) {
-      // Getting some token data is async, so we need to wait for the data to return, hence the promise
-      getBalanceAndSymbol(props.network.account, address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins).then((data) => {
-        setCoin1({
-          address: address,
-          symbol: data.symbol,
-          balance: data.balance,
+    getBalanceAndSymbol(props.network.account, coin1.address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins).then((data) => {
+      if (props.network.weth.address !== coin1.address){
+        getAllowance(coin1.address, props.network.account, dogechainRouter, props.network.signer).then((allowance) => {
+          if (!allowance) return;
+
+          console.log(`Allowance checked | Allowed: ${ethers.utils.formatUnits(allowance, 18)} | Balance: ${data.balance}`)
+
+          setApproveRequired(allowance.lt(data.balanceRaw));
         });
+      }
+    });
+  }, [coin1.address, props.network.account, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins, props.network.router]);
 
-        if (props.network.weth.address !== address){
-          getAllowance(address, props.network.account, dogechainRouter, props.network.signer).then((allowance) => {
-            if (!allowance) return;
-  
-            setApproveRequired(allowance.lt(data.balanceRaw));
-          });
-        }
-      });
-    }
-  };
-
-  // Called when the dialog window for coin2 exits
-  const onToken2Selected = (address) => {
-    // Close the dialog window
-    setDialog2Open(false);
-
-    // If the user inputs the same token, we want to switch the data in the fields
-    if (address === coin1.address) {
-      switchFields();
-    }
-    // We only update the values if the user provides a token
-    else if (address) {
-      // Getting some token data is async, so we need to wait for the data to return, hence the promise
-      getBalanceAndSymbol(props.network.account, address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins).then((data) => {
-        setCoin2({
-          address: address,
-          symbol: data.symbol,
-          balance: data.balance,
-        });
-      });
-    }
-  };
 
   // Calls the swapTokens Ethereum function to make the swap, then resets nessicary state variables
   const swap = () => {
@@ -274,16 +250,73 @@ function CoinSwapper(props) {
     if (isNaN(parseFloat(field1Value))) {
       setField2Value("");
     } else if (parseFloat(field1Value) && coin1.address && coin2.address) {
+      //Async update balance after input
+      getBalanceAndSymbol(
+        props.network.account,
+        coin1.address,
+        props.network.provider,
+        props.network.signer,
+        props.network.weth.address,
+        props.network.coins
+        ).then(
+        (data) => {
+          setCoin1({
+            ...coin1,
+            balance: data.balance,
+          });
+        }
+      );
+
+      getBalanceAndSymbol(
+        props.network.account,
+        coin2.address,
+        props.network.provider,
+        props.network.signer,
+        props.network.weth.address,
+        props.network.coins
+        ).then(
+        (data) => {
+          setCoin2({
+            ...coin2,
+            balance: data.balance,
+          });
+        }
+      );
+
       getAmountOut(coin1.address, coin2.address, field1Value, props.network.router, props.network.signer).then(
-        (amount) => setField2Value(amount.toFixed(7))
-      ).catch(e => {
-        console.log(e);
-        setField2Value("NA");
+        (amount) => {
+          setField2Value(amount.toFixed(7));
+
+          //Calculate price impact
+          const inPoolSize = new BigNumber(ethers.utils.parseUnits(reserves[0], 18).toString());
+          const outPoolSize = new BigNumber(ethers.utils.parseUnits(reserves[1], 18).toString());
+          const inAmount = new BigNumber(ethers.utils.parseUnits(field1Value, 18).toString());
+
+          const proportionBefore = outPoolSize.div(inPoolSize);
+  
+          console.log(`1 token per: [BEFORE] ${proportionBefore.toString()}`);
+
+          const constantProduct = inPoolSize.times(outPoolSize);
+
+          const inPoolSizeAfter = inPoolSize.plus(inAmount);
+          const outPoolSizeAfter = constantProduct.div(inPoolSizeAfter)
+
+          const proportionAfter = outPoolSizeAfter.div(inPoolSizeAfter);
+
+          console.log(`1 token per [AFTER]: ${proportionAfter.toString()}`);
+
+          const differentAmount = proportionBefore.minus(proportionAfter);
+          const differentPersentage = differentAmount.div(proportionBefore).times(100);
+
+          setPriceImpact(differentPersentage.toFixed(2));
+        }).catch(e => {
+          console.log(e);
+          setField2Value("NA");
       })
     } else {
       setField2Value("");
     }
-  }, [field1Value, coin1.address, coin2.address]);
+  }, [field1Value, coin1.address, coin2.address, reserves, props.network.router, props.network.signer]);
 
   // This hook creates a timeout that will run every ~10 seconds, it's role is to check if the user's balance has
   // updated has changed. This allows them to see when a transaction completes by looking at the balance output.
@@ -341,25 +374,14 @@ function CoinSwapper(props) {
     return () => clearTimeout(coinTimeout);
   });
 
+  //Auto set DOGE/GRIMACE pair..
+  useEffect(() => {
+    setCoin1(DOGE);
+    setCoin2(GRIMACE);
+  }, []);
+
   return (
     <div className={classes.allContainer}>
-      {/* Dialog Windows */}
-      <CoinDialog
-        open={dialog1Open}
-        onClose={onToken1Selected}
-        coins={props.network.coins}
-        props={props.network.signer}
-      />
-      <CoinDialog
-        open={dialog2Open}
-        onClose={onToken2Selected}
-        coins={props.network.coins}
-        signer={props.network.signer}
-      />
-      <WrongNetwork
-        open={wrongNetworkOpen}
-        />
-
       {/* Coin Swapper */}
       <iframe 
           src="https://dexscreener.com/dogechain/0x1aAD352a2190B399Bb3cfD4d5E4B0bf6EFA33C0e?embed=1&theme=dark&trades=0&info=0"
@@ -378,7 +400,6 @@ function CoinSwapper(props) {
               <CoinField
                 activeField={true}
                 value={field1Value}
-                onClick={() => setDialog1Open(true)}
                 onChange={handleChange.field1}
                 symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
               />
@@ -392,7 +413,6 @@ function CoinSwapper(props) {
               <CoinField
                 activeField={false}
                 value={field2Value}
-                onClick={() => setDialog2Open(true)}
                 symbol={coin2.symbol !== undefined ? coin2.symbol : "Select"}
               />
             </Grid>
@@ -446,19 +466,6 @@ function CoinSwapper(props) {
           </Grid>
         </Paper>
       </Container>
-
-      <Grid
-        container
-        className={classes.footer}
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-end"
-      >
-        <p>
-        Grimace Swap | Get AUT for use in the bakerloo testnet{" "}
-          <a href="https://faucet.bakerloo.autonity.network/">here</a>
-        </p>
-      </Grid>
     </div>
   );
 }
