@@ -7,6 +7,7 @@
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.11.2",
     "bignumber": "^1.1.0",
+    "bignumber.js": "^9.1.1",
     "bootstrap": "^5.0.1",
     "caniuse-lite": "^1.0.30001491",
     "ethers": "^5.4.1",

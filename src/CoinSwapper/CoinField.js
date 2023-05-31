@@ -167,7 +167,6 @@ export default function CoinField(props) {
             className={classes.fab}
           >
             {symbol}
-            <ExpandMoreIcon />
           </Fab>
         </Grid>
 
