@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/GrimaceSwap/static/css/main.9932d063.css",
-    "main.js": "/GrimaceSwap/static/js/main.ccac64b2.js",
+    "main.css": "/GrimaceSwap/static/css/main.23a4f1f7.css",
+    "main.js": "/GrimaceSwap/static/js/main.e90bb972.js",
     "static/js/787.6b1a131c.chunk.js": "/GrimaceSwap/static/js/787.6b1a131c.chunk.js",
     "static/media/dots.png": "/GrimaceSwap/static/media/dots.527e97fb490adf3dc63f.png",
     "index.html": "/GrimaceSwap/index.html",
-    "static/media/swap.svg": "/GrimaceSwap/static/media/swap.8e3da68c708bb44977e6da4aa90adc7b.svg",
-    "static/media/liquidity.svg": "/GrimaceSwap/static/media/liquidity.980d831975012f23c405e1268d7aab6d.svg",
-    "static/media/home.svg": "/GrimaceSwap/static/media/home.8161b24991c4cc0035b7f7c3bc6f6650.svg",
-    "main.9932d063.css.map": "/GrimaceSwap/static/css/main.9932d063.css.map",
-    "main.ccac64b2.js.map": "/GrimaceSwap/static/js/main.ccac64b2.js.map",
+    "static/media/swap.svg": "/GrimaceSwap/static/media/swap.1e6dd2318591e83ae039596939bcb94a.svg",
+    "static/media/liquidity.svg": "/GrimaceSwap/static/media/liquidity.58586c936ba9857c7c0ec9c11ec92907.svg",
+    "static/media/home.svg": "/GrimaceSwap/static/media/home.36e239986565ad4b613a4e47f99e8eaa.svg",
+    "main.23a4f1f7.css.map": "/GrimaceSwap/static/css/main.23a4f1f7.css.map",
+    "main.e90bb972.js.map": "/GrimaceSwap/static/js/main.e90bb972.js.map",
     "787.6b1a131c.chunk.js.map": "/GrimaceSwap/static/js/787.6b1a131c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9932d063.css",
-    "static/js/main.ccac64b2.js"
+    "static/css/main.23a4f1f7.css",
+    "static/js/main.e90bb972.js"
   ]
 }
