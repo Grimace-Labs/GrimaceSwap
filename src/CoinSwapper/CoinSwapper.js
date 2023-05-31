@@ -288,27 +288,20 @@ function CoinSwapper(props) {
           setField2Value(amount.toFixed(7));
 
           //Calculate price impact
-          const inPoolSize = new BigNumber(ethers.utils.parseUnits(reserves[0], 18).toString());
-          const outPoolSize = new BigNumber(ethers.utils.parseUnits(reserves[1], 18).toString());
-          const inAmount = new BigNumber(ethers.utils.parseUnits(field1Value, 18).toString());
+          const poolOut = new BigNumber(reserves[1]);
+          const amountOut = new BigNumber(amount.toString());
 
-          const proportionBefore = outPoolSize.div(inPoolSize);
-  
-          console.log(`1 token per: [BEFORE] ${proportionBefore.toString()}`);
+          const poolOutAfter = poolOut.minus(amountOut);
+          const poolOutDifferent = poolOut.minus(poolOutAfter);
+          const priceImpact = poolOutDifferent.div(poolOut).times(100);
 
-          const constantProduct = inPoolSize.times(outPoolSize);
-
-          const inPoolSizeAfter = inPoolSize.plus(inAmount);
-          const outPoolSizeAfter = constantProduct.div(inPoolSizeAfter)
-
-          const proportionAfter = outPoolSizeAfter.div(inPoolSizeAfter);
-
-          console.log(`1 token per [AFTER]: ${proportionAfter.toString()}`);
-
-          const differentAmount = proportionBefore.minus(proportionAfter);
-          const differentPersentage = differentAmount.div(proportionBefore).times(100);
-
-          setPriceImpact(differentPersentage.toFixed(2));
+          setPriceImpact(
+            priceImpact.lt('0.1') 
+              ? "< 0.1" 
+              : priceImpact.gt('99') 
+                ? '> 99' 
+                : priceImpact.toString().slice(0, 4)
+          );
         }).catch(e => {
           console.log(e);
           setField2Value("NA");
@@ -447,6 +440,19 @@ function CoinSwapper(props) {
               <Grid item xs={6}>
                 <Typography variant="body1" className={classes.balance}>
                   {formatReserve(reserves[1], coin2.symbol)}
+                </Typography>
+              </Grid>
+            </Grid>
+            {/* Price Impact Display */}
+            <Grid container direction="row" justifyContent="space-between">
+              <Grid item xs={6}>
+                <Typography variant="body1" className={classes.balance}>
+                  Price Impact: 
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1" className={classes.balance}>
+                  {priceImpact}%
                 </Typography>
               </Grid>
             </Grid>
