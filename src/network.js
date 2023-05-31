@@ -10,6 +10,7 @@ import {
   getNetwork,
   getWeth,
 } from "./ethereumFunctions";
+
 import COINS from "./constants/coins";
 import * as chains from "./constants/chains";
 
@@ -25,7 +26,6 @@ const theme = createTheme({
     },
   },
 });
-
 const autoReconnectDelay = 5000;
 
 const Web3Provider = (props) => {
