@@ -82,7 +82,7 @@ export const DOGE = {
   name: "Doge",
   abbr: "DOGE",
   symbol: "DOGE",
-  address: "", // eth address is fetched from the router
+  address: "0xB7ddC6414bf4F5515b52D8BdD69973Ae205ff101",
 }
 
 const DOGECHAINCoins = [
