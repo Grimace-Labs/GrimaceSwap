@@ -157,24 +157,51 @@ function CoinSwapper(props) {
     }
     // We only update the values if the user provides a token
     else if (address) {
+      setCoin1(coin => {
+        return {
+          ...coin,
+          address
+        }
+      });
+
       // Getting some token data is async, so we need to wait for the data to return, hence the promise
       getBalanceAndSymbol(props.network.account, address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins).then((data) => {
-        setCoin1({
-          address: address,
-          symbol: data.symbol,
-          balance: data.balance,
-        });
+
 
         if (props.network.weth.address !== address){
           getAllowance(address, props.network.account, dogechainRouter, props.network.signer).then((allowance) => {
             if (!allowance) return;
-  
+
             setApproveRequired(allowance.lt(data.balanceRaw));
           });
         }
       });
     }
   };
+
+  useEffect(() => {
+    if (!coin1.address) return;
+
+    getBalanceAndSymbol(props.network.account, coin1.address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins).then((data) => {
+      setCoin1(coin => {
+        return {
+          ...coin,
+          symbol: data.symbol,
+          balance: data.balance,
+        }
+      });
+
+      if (props.network.weth.address !== coin1.address){
+        getAllowance(coin1.address, props.network.account, dogechainRouter, props.network.signer).then((allowance) => {
+          if (!allowance) return;
+
+          console.log(`Allowance for token: ${data.symbol} checked, allowed: ${!allowance.lt(data.balanceRaw)}`);
+
+          setApproveRequired(allowance.lt(data.balanceRaw));
+        });
+      }
+    });
+  }, [coin1.address, props.network.account, coin1.address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins]);
 
   // Called when the dialog window for coin2 exits
   const onToken2Selected = (address) => {
