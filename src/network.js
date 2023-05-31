@@ -25,7 +25,6 @@ const theme = createTheme({
     },
   },
 });
-
 const autoReconnectDelay = 5000;
 
 const Web3Provider = (props) => {
