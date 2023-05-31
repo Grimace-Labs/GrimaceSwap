@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { ethers } from "ethers";
+import BigNumber from "bignumber.js";
 import {
   Container,
   Grid,
@@ -72,6 +74,7 @@ function CoinSwapper(props) {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [approveIsRequired, setApproveRequired] = useState(false);
+  const [priceImpact, setPriceImpact] = useState('0');
 
   // Stores a record of whether their respective dialog window is open
   const [dialog1Open, setDialog1Open] = React.useState(false);
@@ -91,7 +94,8 @@ function CoinSwapper(props) {
   });
 
   // Stores the current reserves in the liquidity pool between coin1 and coin2
-  const [reserves, setReserves] = React.useState(["0.0", "0.0"]);
+  const reverseDefaultValue = '0.0';
+  const [reserves, setReserves] = React.useState([reverseDefaultValue, reverseDefaultValue]);
 
   // Stores the current value of their respective text box
   const [field1Value, setField1Value] = React.useState("");
@@ -275,15 +279,40 @@ function CoinSwapper(props) {
       setField2Value("");
     } else if (parseFloat(field1Value) && coin1.address && coin2.address) {
       getAmountOut(coin1.address, coin2.address, field1Value, props.network.router, props.network.signer).then(
-        (amount) => setField2Value(amount.toFixed(7))
-      ).catch(e => {
-        console.log(e);
-        setField2Value("NA");
+        (amount) => {
+          setField2Value(amount.toFixed(7));
+
+          const inPoolSize = new BigNumber(ethers.utils.parseUnits(reserves[0], 18).toString());
+          const outPoolSize = new BigNumber(ethers.utils.parseUnits(reserves[1], 18).toString());
+          const inAmount = new BigNumber(ethers.utils.parseUnits(field1Value, 18).toString());
+
+          const proportionBefore = outPoolSize.div(inPoolSize);
+  
+          // console.log(`1 token per: [BEFORE] ${proportionBefore.toString()}`);
+
+          const constantProduct = inPoolSize.times(outPoolSize);
+
+          const inPoolSizeAfter = inPoolSize.plus(inAmount);
+          const outPoolSizeAfter = constantProduct.div(inPoolSizeAfter)
+
+          const proportionAfter = outPoolSizeAfter.div(inPoolSizeAfter);
+
+          // console.log(`1 token per [AFTER]: ${proportionAfter.toString()}`);
+
+          const differentAmount = proportionBefore.minus(proportionAfter);
+          const differentPersentage = differentAmount.div(proportionBefore).times(100);
+
+          setPriceImpact(differentPersentage.toFixed(2));
+
+          
+        }).catch(e => {
+          console.log(e);
+          setField2Value("NA");
       })
     } else {
       setField2Value("");
     }
-  }, [field1Value, coin1.address, coin2.address]);
+  }, [field1Value, coin1.address, coin2.address, reserves]);
 
   // This hook creates a timeout that will run every ~10 seconds, it's role is to check if the user's balance has
   // updated has changed. This allows them to see when a transaction completes by looking at the balance output.
@@ -430,6 +459,19 @@ function CoinSwapper(props) {
                 </Typography>
               </Grid>
             </Grid>
+            {/* Price Impact Display */}
+            <Grid container direction="row" justifyContent="space-between">
+              <Grid item xs={6}>
+                <Typography variant="body1" className={classes.balance}>
+                  Price Impact: 
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1" className={classes.balance}>
+                  {priceImpact}%
+                </Typography>
+              </Grid>
+            </Grid>
 
             <hr className={classes.hr} />
 
@@ -446,19 +488,6 @@ function CoinSwapper(props) {
           </Grid>
         </Paper>
       </Container>
-
-      <Grid
-        container
-        className={classes.footer}
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-end"
-      >
-        <p>
-        Grimace Swap | Get AUT for use in the bakerloo testnet{" "}
-          <a href="https://faucet.bakerloo.autonity.network/">here</a>
-        </p>
-      </Grid>
     </div>
   );
 }

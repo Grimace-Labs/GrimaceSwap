@@ -71,17 +71,19 @@ const GÖRLICoins = [
   },
 ]
 
+const GRIMACE = {
+  name: "Grimace",
+  abbr: "Grimace",
+  address: "0x2f90907fD1DC1B7a484b6f31Ddf012328c2baB28",
+}
+
 const DOGECHAINCoins = [
   {
     name: "Doge",
     abbr: "DOGE",
     address: "", // eth address is fetched from the router
   },
-  {
-    name: "Grimace",
-    abbr: "Grimace",
-    address: "0x2f90907fD1DC1B7a484b6f31Ddf012328c2baB28",
-  },
+  GRIMACE
 ]
 
 const COINS = new Map();
