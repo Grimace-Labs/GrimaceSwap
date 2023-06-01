@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import BigNumber from "bignumber.js";
 import {
   Container,
   Grid,
@@ -72,6 +73,7 @@ function CoinSwapper(props) {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [approveIsRequired, setApproveRequired] = useState(false);
+  const [priceImpact, setPriceImpact] = useState('0');
 
   // Stores a record of whether their respective dialog window is open
   const [dialog1Open, setDialog1Open] = React.useState(false);
@@ -293,6 +295,24 @@ function CoinSwapper(props) {
     }
   }, [coin1.address, coin2.address, props.network.account, props.network.factory, props.network.router, props.network.signer]);
 
+  //Calculate price impact
+  useEffect(() => {
+    const poolOut = new BigNumber(reserves[1]);
+    const amountOut = new BigNumber(field2Value);
+
+    const poolOutAfter = poolOut.minus(amountOut);
+    const poolOutDifferent = poolOut.minus(poolOutAfter);
+    const priceImpact = poolOutDifferent.div(poolOut).times(100);
+
+    setPriceImpact(
+      priceImpact.lt('0.1') 
+        ? "< 0.1" 
+        : priceImpact.gt('99') 
+          ? '> 99' 
+          : priceImpact.toString().slice(0, 4)
+    );
+  }, [field2Value, reserves[1]]);
+
   // This hook is called when either of the state variables `field1Value` `coin1.address` or `coin2.address` change.
   // It attempts to calculate and set the state variable `field2Value`
   // This means that if the user types a new value into the conversion box or the conversion rate changes,
@@ -454,6 +474,19 @@ function CoinSwapper(props) {
               <Grid item xs={6}>
                 <Typography variant="body1" className={classes.balance}>
                   {formatReserve(reserves[1], coin2.symbol)}
+                </Typography>
+              </Grid>
+            </Grid>
+            {/* Price Impact Display */}
+            <Grid container direction="row" justifyContent="space-between">
+              <Grid item xs={6}>
+                <Typography variant="body1" className={classes.balance}>
+                  Price Impact: 
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1" className={classes.balance}>
+                  {priceImpact}%
                 </Typography>
               </Grid>
             </Grid>
