@@ -163,6 +163,7 @@ function CoinSwapper(props) {
           address
         }
       });
+    }
   };
 
   useEffect(() => {
