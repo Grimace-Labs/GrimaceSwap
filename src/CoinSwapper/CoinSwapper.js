@@ -163,25 +163,12 @@ function CoinSwapper(props) {
           address
         }
       });
-
-      // Getting some token data is async, so we need to wait for the data to return, hence the promise
-      getBalanceAndSymbol(props.network.account, address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins).then((data) => {
-
-
-        if (props.network.weth.address !== address){
-          getAllowance(address, props.network.account, dogechainRouter, props.network.signer).then((allowance) => {
-            if (!allowance) return;
-
-            setApproveRequired(allowance.lt(data.balanceRaw));
-          });
-        }
-      });
-    }
   };
 
   useEffect(() => {
     if (!coin1.address) return;
 
+    //when coin1.address changed: fetch balances, symbol, allowance, etc.
     getBalanceAndSymbol(props.network.account, coin1.address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins).then((data) => {
       setCoin1(coin => {
         return {
@@ -201,7 +188,7 @@ function CoinSwapper(props) {
         });
       }
     });
-  }, [coin1.address, props.network.account, coin1.address, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins]);
+  }, [coin1.address, props.network.account, props.network.provider, props.network.signer, props.network.weth.address, props.network.coins]);
 
   // Called when the dialog window for coin2 exits
   const onToken2Selected = (address) => {
