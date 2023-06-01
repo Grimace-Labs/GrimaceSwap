@@ -1,19 +1,26 @@
 {
   "files": {
-    "main.css": "/GrimaceSwap/static/css/main.23a4f1f7.css",
-    "main.js": "/GrimaceSwap/static/js/main.e90bb972.js",
-    "static/js/787.6b1a131c.chunk.js": "/GrimaceSwap/static/js/787.6b1a131c.chunk.js",
-    "static/media/dots.png": "/GrimaceSwap/static/media/dots.527e97fb490adf3dc63f.png",
+    "main.css": "/GrimaceSwap/static/css/main.5a914747.chunk.css",
+    "main.js": "/GrimaceSwap/static/js/main.69a911b3.chunk.js",
+    "main.js.map": "/GrimaceSwap/static/js/main.69a911b3.chunk.js.map",
+    "runtime-main.js": "/GrimaceSwap/static/js/runtime-main.04b203ef.js",
+    "runtime-main.js.map": "/GrimaceSwap/static/js/runtime-main.04b203ef.js.map",
+    "static/css/2.67b8fbcd.chunk.css": "/GrimaceSwap/static/css/2.67b8fbcd.chunk.css",
+    "static/js/2.6d052a8c.chunk.js": "/GrimaceSwap/static/js/2.6d052a8c.chunk.js",
+    "static/js/2.6d052a8c.chunk.js.map": "/GrimaceSwap/static/js/2.6d052a8c.chunk.js.map",
+    "static/js/3.83bcecda.chunk.js": "/GrimaceSwap/static/js/3.83bcecda.chunk.js",
+    "static/js/3.83bcecda.chunk.js.map": "/GrimaceSwap/static/js/3.83bcecda.chunk.js.map",
     "index.html": "/GrimaceSwap/index.html",
-    "static/media/swap.svg": "/GrimaceSwap/static/media/swap.1e6dd2318591e83ae039596939bcb94a.svg",
-    "static/media/liquidity.svg": "/GrimaceSwap/static/media/liquidity.58586c936ba9857c7c0ec9c11ec92907.svg",
-    "static/media/home.svg": "/GrimaceSwap/static/media/home.36e239986565ad4b613a4e47f99e8eaa.svg",
-    "main.23a4f1f7.css.map": "/GrimaceSwap/static/css/main.23a4f1f7.css.map",
-    "main.e90bb972.js.map": "/GrimaceSwap/static/js/main.e90bb972.js.map",
-    "787.6b1a131c.chunk.js.map": "/GrimaceSwap/static/js/787.6b1a131c.chunk.js.map"
+    "static/css/2.67b8fbcd.chunk.css.map": "/GrimaceSwap/static/css/2.67b8fbcd.chunk.css.map",
+    "static/css/main.5a914747.chunk.css.map": "/GrimaceSwap/static/css/main.5a914747.chunk.css.map",
+    "static/js/2.6d052a8c.chunk.js.LICENSE.txt": "/GrimaceSwap/static/js/2.6d052a8c.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/GrimaceSwap/static/media/dots.527e97fb.png"
   },
   "entrypoints": [
-    "static/css/main.23a4f1f7.css",
-    "static/js/main.e90bb972.js"
+    "static/js/runtime-main.04b203ef.js",
+    "static/css/2.67b8fbcd.chunk.css",
+    "static/js/2.6d052a8c.chunk.js",
+    "static/css/main.5a914747.chunk.css",
+    "static/js/main.69a911b3.chunk.js"
   ]
 }
