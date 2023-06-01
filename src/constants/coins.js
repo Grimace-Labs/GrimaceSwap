@@ -3,7 +3,7 @@ import * as chains from './chains';
 const DOGECHAINCoins = [
   {
     name: "Doge",
-    abbr: "DOGE",
+    abbr: "WDOGE",
     address: "", // eth address is fetched from the router
   },
   {
