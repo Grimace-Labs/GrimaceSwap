@@ -27,10 +27,25 @@ import { dogechainRouter } from "../constants/chains";
 
 const styles = (theme) => ({
   allContainer: {
+    alignItems: 'center',
+    padding: '0 20px',
+    maxWidth: '1400px',
+    margin: '0 auto',
+    justifyContent: 'center',
+  },
+  mainContainer: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    padding: '0 20px'
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column-reverse',
+    },
+  },
+  graph: {
+    margin: '0 auto',
+    border: '2px solid rgba(113, 83, 217, 1)',
+    borderRadius: theme.spacing(2),
+    maxWidth: '90vw'
   },
   paperContainer: {
     backgroundColor: '#2F2A70',
@@ -38,7 +53,10 @@ const styles = (theme) => ({
     border: '2px solid rgba(113, 83, 217, 1)',
     padding: theme.spacing(3),
     paddingBottom: theme.spacing(3),
-    color: 'white'
+    color: 'white',
+    [theme.breakpoints.down('md')]: {
+      marginBottom: '100px',
+    },
   },
   switchButton: {
     zIndex: 1,
@@ -63,7 +81,11 @@ const styles = (theme) => ({
     textAlign: "center",
   },
   footer: {
-    marginTop: "285px",
+    [theme.breakpoints.down('md')]: {
+      marginTop: "100px",
+      marginBottom: "100px",
+    },
+      marginTop: "285px",
   },
 });
 
@@ -396,105 +418,107 @@ function CoinSwapper(props) {
         />
 
       {/* Coin Swapper */}
-      <iframe 
-          src="https://dexscreener.com/dogechain/0x1aAD352a2190B399Bb3cfD4d5E4B0bf6EFA33C0e?embed=1&theme=dark&trades=0&info=0"
-          title="MyFrame"
-          width="800px"
-          height="600px"             
-      ></iframe>
-      <Container maxWidth="xs" className={classes.swapContainer}>
-        <Paper className={classes.paperContainer}>
-          <Typography variant="h5" className={classes.title}>
-            Swap Coins
-          </Typography>
+      <div className={classes.mainContainer}>
+        <iframe 
+            src="https://dexscreener.com/dogechain/0x1aAD352a2190B399Bb3cfD4d5E4B0bf6EFA33C0e?embed=1&theme=dark&trades=0&info=0"
+            title="MyFrame"
+            width="780px"
+            height="650px"  
+            className={classes.graph}           
+        ></iframe>
+        <Container maxWidth="xs" className={classes.swapContainer}>
+          <Paper className={classes.paperContainer}>
+            <Typography variant="h5" className={classes.title}>
+              Swap Coins
+            </Typography>
 
-          <Grid container direction="column" alignItems="center" spacing={2}>
-            <Grid item xs={12} className={classes.fullWidth}>
-              <CoinField
-                activeField={true}
-                value={field1Value}
-                onClick={() => setDialog1Open(true)}
-                onChange={handleChange.field1}
-                symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
-              />
+            <Grid container direction="column" alignItems="center" spacing={2}>
+              <Grid item xs={12} className={classes.fullWidth}>
+                <CoinField
+                  activeField={true}
+                  value={field1Value}
+                  onClick={() => setDialog1Open(true)}
+                  onChange={handleChange.field1}
+                  symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
+                />
+              </Grid>
+
+              <IconButton onClick={switchFields} className={classes.switchButton}>
+                <SwapVerticalCircleIcon fontSize="medium" />
+              </IconButton>
+
+              <Grid item xs={12} className={classes.fullWidth}>
+                <CoinField
+                  activeField={false}
+                  value={field2Value}
+                  onClick={() => setDialog2Open(true)}
+                  symbol={coin2.symbol !== undefined ? coin2.symbol : "Select"}
+                />
+              </Grid>
+
+              <hr className={classes.hr} />
+
+              {/* Balance Display */}
+              <Typography variant="h6">Your Balances</Typography>
+              <Grid container direction="row" justifyContent="space-between">
+                <Grid item xs={6}>
+                  <Typography variant="body1" className={classes.balance}>
+                    {formatBalance(coin1.balance, coin1.symbol)}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="body1" className={classes.balance}>
+                    {formatBalance(coin2.balance, coin2.symbol)}
+                  </Typography>
+                </Grid>
+              </Grid>
+
+              <hr className={classes.hr} />
+
+              {/* Reserves Display */}
+              <Typography variant="h6">Reserves</Typography>
+              <Grid container direction="row" justifyContent="space-between">
+                <Grid item xs={6}>
+                  <Typography variant="body1" className={classes.balance}>
+                    {formatReserve(reserves[0], coin1.symbol)}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="body1" className={classes.balance}>
+                    {formatReserve(reserves[1], coin2.symbol)}
+                  </Typography>
+                </Grid>
+              </Grid>
+              {/* Price Impact Display */}
+              <Grid container direction="row" justifyContent="space-between">
+                <Grid item xs={6}>
+                  <Typography variant="body1" className={classes.balance}>
+                    Price Impact: 
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="body1" className={classes.balance}>
+                    {priceImpact}%
+                  </Typography>
+                </Grid>
+              </Grid>
+
+              <hr className={classes.hr} />
+
+              <LoadingButton
+                loading={loading}
+                valid={isButtonEnabled()}
+                success={false}
+                fail={false}
+                onClick={swap}
+              >
+                <LoopIcon />
+                { approveIsRequired ? `Approve ${coin1.symbol}` : "swap" }
+              </LoadingButton>
             </Grid>
-
-            <IconButton onClick={switchFields} className={classes.switchButton}>
-              <SwapVerticalCircleIcon fontSize="medium" />
-            </IconButton>
-
-            <Grid item xs={12} className={classes.fullWidth}>
-              <CoinField
-                activeField={false}
-                value={field2Value}
-                onClick={() => setDialog2Open(true)}
-                symbol={coin2.symbol !== undefined ? coin2.symbol : "Select"}
-              />
-            </Grid>
-
-            <hr className={classes.hr} />
-
-            {/* Balance Display */}
-            <Typography variant="h6">Your Balances</Typography>
-            <Grid container direction="row" justifyContent="space-between">
-              <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
-                  {formatBalance(coin1.balance, coin1.symbol)}
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
-                  {formatBalance(coin2.balance, coin2.symbol)}
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <hr className={classes.hr} />
-
-            {/* Reserves Display */}
-            <Typography variant="h6">Reserves</Typography>
-            <Grid container direction="row" justifyContent="space-between">
-              <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
-                  {formatReserve(reserves[0], coin1.symbol)}
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
-                  {formatReserve(reserves[1], coin2.symbol)}
-                </Typography>
-              </Grid>
-            </Grid>
-            {/* Price Impact Display */}
-            <Grid container direction="row" justifyContent="space-between">
-              <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
-                  Price Impact: 
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
-                  {priceImpact}%
-                </Typography>
-              </Grid>
-            </Grid>
-
-            <hr className={classes.hr} />
-
-            <LoadingButton
-              loading={loading}
-              valid={isButtonEnabled()}
-              success={false}
-              fail={false}
-              onClick={swap}
-            >
-              <LoopIcon />
-              { approveIsRequired ? `Approve ${coin1.symbol}` : "swap" }
-            </LoadingButton>
-          </Grid>
-        </Paper>
-      </Container>
-
+          </Paper>
+        </Container>
+      </div>
       <Grid
         container
         className={classes.footer}
