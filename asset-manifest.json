@@ -1,26 +1,32 @@
 {
   "files": {
-    "main.css": "/GrimaceSwap/static/css/main.5a914747.chunk.css",
-    "main.js": "/GrimaceSwap/static/js/main.65186887.chunk.js",
-    "main.js.map": "/GrimaceSwap/static/js/main.65186887.chunk.js.map",
-    "runtime-main.js": "/GrimaceSwap/static/js/runtime-main.04b203ef.js",
-    "runtime-main.js.map": "/GrimaceSwap/static/js/runtime-main.04b203ef.js.map",
+    "main.css": "/GrimaceSwap/static/css/main.14711bb8.chunk.css",
+    "main.js": "/GrimaceSwap/static/js/main.4043a7f9.chunk.js",
+    "main.js.map": "/GrimaceSwap/static/js/main.4043a7f9.chunk.js.map",
+    "runtime-main.js": "/GrimaceSwap/static/js/runtime-main.b426cf42.js",
+    "runtime-main.js.map": "/GrimaceSwap/static/js/runtime-main.b426cf42.js.map",
     "static/css/2.67b8fbcd.chunk.css": "/GrimaceSwap/static/css/2.67b8fbcd.chunk.css",
-    "static/js/2.6d052a8c.chunk.js": "/GrimaceSwap/static/js/2.6d052a8c.chunk.js",
-    "static/js/2.6d052a8c.chunk.js.map": "/GrimaceSwap/static/js/2.6d052a8c.chunk.js.map",
-    "static/js/3.83bcecda.chunk.js": "/GrimaceSwap/static/js/3.83bcecda.chunk.js",
-    "static/js/3.83bcecda.chunk.js.map": "/GrimaceSwap/static/js/3.83bcecda.chunk.js.map",
+    "static/js/2.4a32ab34.chunk.js": "/GrimaceSwap/static/js/2.4a32ab34.chunk.js",
+    "static/js/2.4a32ab34.chunk.js.map": "/GrimaceSwap/static/js/2.4a32ab34.chunk.js.map",
+    "static/js/3.20f77e40.chunk.js": "/GrimaceSwap/static/js/3.20f77e40.chunk.js",
+    "static/js/3.20f77e40.chunk.js.map": "/GrimaceSwap/static/js/3.20f77e40.chunk.js.map",
     "index.html": "/GrimaceSwap/index.html",
     "static/css/2.67b8fbcd.chunk.css.map": "/GrimaceSwap/static/css/2.67b8fbcd.chunk.css.map",
-    "static/css/main.5a914747.chunk.css.map": "/GrimaceSwap/static/css/main.5a914747.chunk.css.map",
-    "static/js/2.6d052a8c.chunk.js.LICENSE.txt": "/GrimaceSwap/static/js/2.6d052a8c.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/GrimaceSwap/static/media/dots.527e97fb.png"
+    "static/css/main.14711bb8.chunk.css.map": "/GrimaceSwap/static/css/main.14711bb8.chunk.css.map",
+    "static/js/2.4a32ab34.chunk.js.LICENSE.txt": "/GrimaceSwap/static/js/2.4a32ab34.chunk.js.LICENSE.txt",
+    "static/media/discord.626c8c0f.svg": "/GrimaceSwap/static/media/discord.626c8c0f.svg",
+    "static/media/App.css": "/GrimaceSwap/static/media/dots.527e97fb.png",
+    "static/media/home.8161b249.svg": "/GrimaceSwap/static/media/home.8161b249.svg",
+    "static/media/liquidity.980d8319.svg": "/GrimaceSwap/static/media/liquidity.980d8319.svg",
+    "static/media/swap.8e3da68c.svg": "/GrimaceSwap/static/media/swap.8e3da68c.svg",
+    "static/media/telegram.67e7236e.svg": "/GrimaceSwap/static/media/telegram.67e7236e.svg",
+    "static/media/twitter.b67f573e.svg": "/GrimaceSwap/static/media/twitter.b67f573e.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.04b203ef.js",
+    "static/js/runtime-main.b426cf42.js",
     "static/css/2.67b8fbcd.chunk.css",
-    "static/js/2.6d052a8c.chunk.js",
-    "static/css/main.5a914747.chunk.css",
-    "static/js/main.65186887.chunk.js"
+    "static/js/2.4a32ab34.chunk.js",
+    "static/css/main.14711bb8.chunk.css",
+    "static/js/main.4043a7f9.chunk.js"
   ]
 }
