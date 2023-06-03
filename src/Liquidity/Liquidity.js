@@ -54,19 +54,6 @@ function Liquidity(props) {
           {deploy_or_remove(deploy)}
         </Paper>
       </Container>
-
-      <Grid
-        container
-        className={classes.footer}
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-end"
-      >
-        <p>
-        Grimace Swap | Get AUT for use in the bakerloo testnet{" "}
-          <a href="https://faucet.bakerloo.autonity.network/">here</a>
-        </p>
-      </Grid>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import SwapVerticalCircleIcon from "@material-ui/icons/SwapVerticalCircle";
+import SwapVert from "@material-ui/icons/ArrowDownward";
 import { useSnackbar } from "notistack";
 import LoopIcon from "@material-ui/icons/Loop";
 import {
@@ -37,6 +37,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems: 'center',
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column-reverse',
     },
@@ -61,7 +62,16 @@ const styles = (theme) => ({
   switchButton: {
     zIndex: 1,
     margin: "-16px",
+    backgroundColor: 'rgba(113, 83, 217, 1)',
+    width: '48px',
+    height: '48px',
     padding: theme.spacing(0.5),
+    borderRadius: '16px',
+    border: '3px solid rgba(26, 25, 40, 1)',
+    '&:hover': {
+      backgroundColor: '#7153D9',
+      color: 'black',
+    },
   },
   fullWidth: {
     width: "100%",
@@ -440,11 +450,12 @@ function CoinSwapper(props) {
                   onClick={() => setDialog1Open(true)}
                   onChange={handleChange.field1}
                   symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
+                  balance={formatBalance(coin1.balance, coin1.symbol) || '0'}
                 />
               </Grid>
 
               <IconButton onClick={switchFields} className={classes.switchButton}>
-                <SwapVerticalCircleIcon fontSize="medium" />
+                <SwapVert fontSize="large"/>
               </IconButton>
 
               <Grid item xs={12} className={classes.fullWidth}>
@@ -454,23 +465,6 @@ function CoinSwapper(props) {
                   onClick={() => setDialog2Open(true)}
                   symbol={coin2.symbol !== undefined ? coin2.symbol : "Select"}
                 />
-              </Grid>
-
-              <hr className={classes.hr} />
-
-              {/* Balance Display */}
-              <Typography variant="h6">Your Balances</Typography>
-              <Grid container direction="row" justifyContent="space-between">
-                <Grid item xs={6}>
-                  <Typography variant="body1" className={classes.balance}>
-                    {formatBalance(coin1.balance, coin1.symbol)}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="body1" className={classes.balance}>
-                    {formatBalance(coin2.balance, coin2.symbol)}
-                  </Typography>
-                </Grid>
               </Grid>
 
               <hr className={classes.hr} />
@@ -519,18 +513,6 @@ function CoinSwapper(props) {
           </Paper>
         </Container>
       </div>
-      <Grid
-        container
-        className={classes.footer}
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-end"
-      >
-        <p>
-        Grimace Swap | Get AUT for use in the bakerloo testnet{" "}
-          <a href="https://faucet.bakerloo.autonity.network/">here</a>
-        </p>
-      </Grid>
     </div>
   );
 }

@@ -20,6 +20,9 @@ import * as COLORS from "@material-ui/core/colors";
 const styles = (theme) => ({
   dialogContainer: {
     borderRadius: theme.spacing(2),
+    border: '3px solid rgba(113, 83, 217, 1)',
+    backgroundColor: '#2f2a70',
+    color: 'white'
   },
   titleSection: {
     padding: theme.spacing(2),
@@ -34,6 +37,9 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(2.5),
     paddingRight: theme.spacing(2.5),
     paddingBottom: theme.spacing(2),
+    '& .MuiOutlinedInput-input': {
+      color: 'white',
+    },
   },
   coinList: {
     height: "300px",
@@ -46,6 +52,9 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
     overflow: "hidden",
   },
+  close: {
+    color: 'white'
+  }
 });
 
 const useStyles = makeStyles(styles);
@@ -69,7 +78,7 @@ const DialogTitle = withStyles(styles)((props) => {
           {children}
         </Typography>
         {onClose ? (
-          <IconButton aria-label="close" onClick={onClose}>
+          <IconButton className={classes.close} aria-label="close" onClick={onClose}>
             <CloseIcon />
           </IconButton>
         ) : null}
@@ -83,7 +92,6 @@ const DialogActions = withStyles((theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(1),
-    backgroundColor: COLORS.grey[100],
   },
 }))(MuiDialogActions);
 

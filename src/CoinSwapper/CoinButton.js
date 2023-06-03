@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
     "&:hover, &$focusVisible": {
-      backgroundColor: COLORS.grey[200],
+      backgroundColor: '#1A1928',
     },
   },
   coinName: {
