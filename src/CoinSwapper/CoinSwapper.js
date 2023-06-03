@@ -38,6 +38,7 @@ const styles = (theme) => ({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
+
     [theme.breakpoints.down('md')]: {
       flexDirection: 'column-reverse',
     },
@@ -451,11 +452,13 @@ function CoinSwapper(props) {
                   onChange={handleChange.field1}
                   symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
                   balance={formatBalance(coin1.balance, coin1.symbol) || '0'}
+
                 />
               </Grid>
 
               <IconButton onClick={switchFields} className={classes.switchButton}>
                 <SwapVert fontSize="large"/>
+
               </IconButton>
 
               <Grid item xs={12} className={classes.fullWidth}>
