@@ -7,6 +7,14 @@ const useStyles = makeStyles((theme) => ({
   wrapper: {
     margin: 0,
     position: "relative",
+    width:'100%',
+  },
+  btnSwap: {
+    height: '50px',
+    background: 'linear-gradient(90.8deg, #7153D9 0%, #7B2DDE 100%)',
+    boxShadow: '0px 4px 16px rgba(23, 25, 66, 0.16)',
+    borderRadius: '20px',
+
   },
   progress: {
     color: green[500],
@@ -24,8 +32,9 @@ export default function LoadingButton(props) {
   return (
     <div className={classes.wrapper}>
       <Button
+        className={classes.btnSwap}
         variant="contained"
-        color="primary"
+        color="white"
         fullWidth
         disabled={loading || !valid}
         type="submit"
