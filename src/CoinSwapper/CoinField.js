@@ -1,5 +1,5 @@
 import React from "react";
-import { Fab, Grid, InputBase, makeStyles } from "@material-ui/core";
+import { Fab, Grid, InputBase, makeStyles,Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PropTypes from "prop-types";
 import * as COLORS from "@material-ui/core/colors";
@@ -32,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     zIndex: "0",
+    background: 'transparent',
+    color: 'white',
+    boxShadow: 'none',
+    "&:hover, &$focusVisible": {
+      backgroundColor: 'rgba(113, 83, 217, 1)',
+    },
   },
   input: {
     ...theme.typography.h5,
@@ -41,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
     color: 'white',
   },
+  balance: {
+    color: COLORS.grey[500],
+    marginLeft:'10px'
+  }
 }));
 
 CoinField.propTypes = {
@@ -49,7 +59,10 @@ CoinField.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   activeField: PropTypes.bool.isRequired,
+  balance: PropTypes.string.isRequired,
 };
+
+console.log(CoinField.balance);
 
 export function RemoveLiquidityField1(props) {
   // This component is used to selecting a coin and entering a value, the props are explained below:
@@ -95,6 +108,7 @@ export function RemoveLiquidityField1(props) {
             }}
           />
         </Grid>
+        
         {/* </div> */}
       </Grid>
     </div>
@@ -147,7 +161,7 @@ export default function CoinField(props) {
   //      activeField - boolean - Whether text can be entered into this field or not
 
   const classes = useStyles();
-  const { onClick, symbol, value, onChange, activeField } = props;
+  const { onClick, symbol, value, onChange, activeField,balance } = props;
 
   return (
     <div className={classes.container}>
@@ -181,6 +195,11 @@ export default function CoinField(props) {
             classes={{ root: classes.input, input: classes.inputBase }}
           />
         </Grid>
+        {symbol !== "Select" && balance !== undefined && (
+          <Typography variant="body1" className={classes.balance}>
+            Balance: {balance}
+          </Typography>
+        )}
       </Grid>
     </div>
   );

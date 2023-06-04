@@ -3,6 +3,7 @@ import "./App.css";
 import { ethers } from "ethers";
 import Web3Provider from "./network";
 import NarBar from "./NavBar/NavBar";
+import Footer from "./Footer/Footer";
 import CoinSwapper from "./CoinSwapper/CoinSwapper";
 import { Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
@@ -38,6 +39,7 @@ const App = () => {
                 <Route exact path="/GrimaceSwap/liquidity">
                   <Liquidity network={network} />
                 </Route>
+                <Footer />
               </div>
             )}
           ></Web3Provider>
