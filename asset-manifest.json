@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/GrimaceSwap/static/css/main.14711bb8.chunk.css",
-    "main.js": "/GrimaceSwap/static/js/main.4043a7f9.chunk.js",
-    "main.js.map": "/GrimaceSwap/static/js/main.4043a7f9.chunk.js.map",
+    "main.js": "/GrimaceSwap/static/js/main.6d35e2e4.chunk.js",
+    "main.js.map": "/GrimaceSwap/static/js/main.6d35e2e4.chunk.js.map",
     "runtime-main.js": "/GrimaceSwap/static/js/runtime-main.b426cf42.js",
     "runtime-main.js.map": "/GrimaceSwap/static/js/runtime-main.b426cf42.js.map",
     "static/css/2.67b8fbcd.chunk.css": "/GrimaceSwap/static/css/2.67b8fbcd.chunk.css",
@@ -27,6 +27,6 @@
     "static/css/2.67b8fbcd.chunk.css",
     "static/js/2.4a32ab34.chunk.js",
     "static/css/main.14711bb8.chunk.css",
-    "static/js/main.4043a7f9.chunk.js"
+    "static/js/main.6d35e2e4.chunk.js"
   ]
 }
