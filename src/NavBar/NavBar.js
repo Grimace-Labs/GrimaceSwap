@@ -20,23 +20,30 @@ function NavBar() {
 
   return (
     <nav className="nav">
-      <div className="Title">
+      <Link className="Title" to="/GrimaceSwap/">
         <img src={logo} alt="logo"/>
         <h1 className="navbar-logo">
           GrimaceSwap
         </h1>
         <span>alpha</span>
-      </div>
+      </Link>
 
       <div className="NavbarItems">
         <ul className={`nav-menu`}>
         {MenuItems.map((item, index) => {
           return (
             <li key={index}>
-              <Link className={"nav-links"} to={item.url}>
-                {isMobile && item.img && <img src={item.img} alt="home" className="nav-img"/>}
-                {<span>{item.title}</span>}
-              </Link>
+              {item.isExternal ? (
+                <a className={item.cName} href={item.url} target="_blank" rel="noopener noreferrer">
+                  {isMobile && item.img && <img src={item.img} alt={item.title} className="nav-img"/>}
+                  <span>{item.title}</span>
+                </a>
+              ) : (
+                <Link className={item.cName} to={item.url}>
+                  {isMobile && item.img && <img src={item.img} alt={item.title} className="nav-img"/>}
+                  <span>{item.title}</span>
+                </Link>
+              )}
             </li>
           );
         })}

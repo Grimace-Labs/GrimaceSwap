@@ -18,6 +18,9 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(3),
     maxWidth: 700,
     margin: "auto",
+    border: '2px solid rgba(113, 83, 217, 1)',
+    backgroundColor: '#2F2A70',
+    color: 'white'
   },
   title: {
     textAlign: "center",

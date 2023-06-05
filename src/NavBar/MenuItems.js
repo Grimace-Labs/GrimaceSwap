@@ -5,9 +5,10 @@ import liquidity from "../img/liquidity.svg"
 export const MenuItems = [
   {
     title: "Home",
-    url: "/",
+    url: "https://grimacedoge.com",
     cName: "nav-links",
     img: home,
+    isExternal: true,
   },
   {
     title: "Swap",

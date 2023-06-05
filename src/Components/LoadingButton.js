@@ -8,12 +8,17 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     position: "relative",
     width:'100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    padding: '0 20px'
   },
   btnSwap: {
     height: '50px',
     background: 'linear-gradient(90.8deg, #7153D9 0%, #7B2DDE 100%)',
     boxShadow: '0px 4px 16px rgba(23, 25, 66, 0.16)',
     borderRadius: '20px',
+    maxWidth: '300px',
 
   },
   progress: {
