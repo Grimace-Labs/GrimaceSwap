@@ -23,6 +23,12 @@
   position: absolute;
   display: flex;
   flex-direction: row;
+  text-decoration:none;
+}
+
+.Title:hover {
+  color:white;
+  cursor:pointer;
 }
 
 

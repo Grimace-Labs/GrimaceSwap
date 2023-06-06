@@ -1,7 +1,23 @@
 import React from "react";
-import { ButtonGroup, Button } from "@material-ui/core";
+import { ButtonGroup, Button,makeStyles } from "@material-ui/core";
+
+const styles = (theme) => ({
+  add_button: {
+    '&:hover': {
+      backgroundColor: 'rgba(113, 83, 217, 0.7)' // темнее при наведении
+    },
+  },
+  remove_button: {
+    '&:hover': {
+      backgroundColor: 'rgba(113, 83, 217, 0.7)' // темнее при наведении
+    },
+  }
+});
+
+const useStyles = makeStyles(styles);
 
 export default function SwitchButton(props) {
+  const classes = useStyles();
   const { setDeploy } = props;
 
   const changeStyles = (K) => {
@@ -31,7 +47,8 @@ export default function SwitchButton(props) {
             setDeploy(true);
             changeStyles(true);
           }}
-        >
+          className={classes.add_button}
+          >
           Deploy Liquidity
         </Button>
 
@@ -43,6 +60,7 @@ export default function SwitchButton(props) {
             setDeploy(false);
             changeStyles(false);
           }}
+          className={classes.remove_button}
         >
           Remove Liquidity
         </Button>

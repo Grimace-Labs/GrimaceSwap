@@ -325,13 +325,15 @@ function CoinSwapper(props) {
     const poolOutDifferent = poolOut.minus(poolOutAfter);
     const priceImpact = poolOutDifferent.div(poolOut).times(100);
 
-    setPriceImpact(
-      priceImpact.lt('0.1') 
-        ? "< 0.1" 
-        : priceImpact.gt('99') 
-          ? '> 99' 
-          : priceImpact.toString().slice(0, 4)
-    );
+    if (isNaN(priceImpact.toString())) {
+      setPriceImpact('< 0.1');
+    } else if (priceImpact.lt('0.1') ) {
+      setPriceImpact('< 0.1');
+    } else if (priceImpact.gt('99') ) {
+      setPriceImpact('> 99');
+    } else {
+      setPriceImpact(priceImpact.toString().slice(0, 4));
+    }
   }, [field2Value, reserves[1]]);
 
   // This hook is called when either of the state variables `field1Value` `coin1.address` or `coin2.address` change.
