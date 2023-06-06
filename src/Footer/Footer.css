@@ -10,24 +10,3 @@
     margin-top:100px;
   }
 }
-
-.footer__social-links{
-  display: flex;
-  flex-direction:row;
-  justify-content:space-between;
-  margin:0 auto;
-  margin-bottom:50px;
-  width: 130px;
-}
-
-.footer__social-link{
-  background: rgba(47, 42, 112, 1);
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid rgba(113, 83, 217, 1);
-  border-radius: 8px;
-  cursor: pointer;
-}
