@@ -1,70 +1,65 @@
-import React from "react";
-import { ButtonGroup, Button,makeStyles } from "@material-ui/core";
+import React, { useState } from "react";
+import { ButtonGroup, Button, makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 
-const styles = (theme) => ({
-  add_button: {
+const useStyles = makeStyles((theme) => ({
+  selected: {
+    backgroundColor: "rgba(113, 83, 217, 1)",
     '&:hover': {
       backgroundColor: 'rgba(113, 83, 217, 0.7)' // темнее при наведении
     },
   },
-  remove_button: {
+  notSelected: {
+    backgroundColor: "#9e9e9e",
     '&:hover': {
       backgroundColor: 'rgba(113, 83, 217, 0.7)' // темнее при наведении
     },
   }
-});
+}));
 
-const useStyles = makeStyles(styles);
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: 'rgba(113, 83, 217, 1)',
+    },
+  },
+});
 
 export default function SwitchButton(props) {
   const classes = useStyles();
   const { setDeploy } = props;
 
-  const changeStyles = (K) => {
-    if (K === true) {
-      let add_button = document.getElementById("add-button");
-      add_button.style.backgroundColor = "#ff0000";
+  const [selected, setSelected] = useState('add');  // by default, the 'add' button is selected
 
-      let remove_button = document.getElementById("remove-button");
-      remove_button.style.backgroundColor = "#9e9e9e";
-    } else {
-      let remove_button = document.getElementById("remove-button");
-      remove_button.style.backgroundColor = "#ff0000";
-
-      let add_button = document.getElementById("add-button");
-      add_button.style.backgroundColor = "#9e9e9e";
-    }
+  const handleClick = (type) => {
+    setDeploy(type === 'add');
+    setSelected(type);
   };
 
   return (
-    <div>
-      <ButtonGroup size="large" variant="contained">
-        <Button
-          id="add-button"
-          color="primary"
-          text="white"
-          onClick={() => {
-            setDeploy(true);
-            changeStyles(true);
-          }}
-          className={classes.add_button}
+    <ThemeProvider theme={theme}>
+      <div>
+        <ButtonGroup size="large" variant="contained">
+          <Button
+            id="add-button"
+            color="primary"
+            text="white"
+            onClick={() => handleClick('add')}
+            className={selected === 'add' ? classes.selected : classes.notSelected}
           >
-          Deploy Liquidity
-        </Button>
+            Deploy Liquidity
+          </Button>
 
-        <Button
-          id="remove-button"
-          color="secondary"
-          text="white"
-          onClick={() => {
-            setDeploy(false);
-            changeStyles(false);
-          }}
-          className={classes.remove_button}
-        >
-          Remove Liquidity
-        </Button>
-      </ButtonGroup>
-    </div>
+          <Button
+            id="remove-button"
+            color="primary"
+            text="white"
+            onClick={() => handleClick('remove')}
+            className={selected === 'remove' ? classes.selected : classes.notSelected}
+          >
+            Remove Liquidity
+          </Button>
+        </ButtonGroup>
+      </div>
+    </ThemeProvider>
   );
 }

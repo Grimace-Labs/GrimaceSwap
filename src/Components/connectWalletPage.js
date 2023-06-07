@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
+import Footer from "../Footer/Footer";
 
 const styles = (theme) => ({
   paperContainer: {
@@ -66,18 +67,7 @@ function ConnectWalletPage() {
         </Paper>
       </Container>
 
-      <Grid
-        container
-        className={classes.footer}
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-end"
-      >
-        <p>
-        Grimace Swap | Get AUT for use in the bakerloo testnet{" "}
-          <a href="https://faucet.bakerloo.autonity.network/">here</a>
-        </p>
-      </Grid>
+      <Footer/>
     </div>
   );
 }

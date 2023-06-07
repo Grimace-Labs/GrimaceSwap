@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { MenuItems } from "./MenuItems";
 import "./NavBar.css";
+
 import logo from "../img/grimace_coin.png"
+
+import discord from "../img/discord.svg"
+import telegram from "../img/telegram.svg"
+import twitter from "../img/twitter.svg"
 
 function NavBar() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -48,6 +53,17 @@ function NavBar() {
           );
         })}
         </ul>
+        </div>
+        <div className='nav__social-links'>
+          <a className='nav__social-link' href='https://discord.gg/grimacedoge'>
+            <img src={discord} alt='discord'/>
+          </a>
+          <a className='nav__social-link' href='https://t.me/grimacecommunity'>
+            <img src={telegram} alt='telegram'/>
+          </a>
+          <a className='nav__social-link' href='https://twitter.com/Grimacedogchain'>
+            <img src={twitter} alt='twitter'/>
+          </a>
       </div>
     </nav>
   );
