@@ -25,7 +25,7 @@ function NavBar() {
 
   return (
     <nav className="nav">
-      <Link className="Title" to="/GrimaceSwap/">
+      <Link className="Title" to="/">
         <img src={logo} alt="logo"/>
         <h1 className="navbar-logo">
           GrimaceSwap

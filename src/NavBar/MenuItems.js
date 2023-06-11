@@ -12,13 +12,13 @@ export const MenuItems = [
   },
   {
     title: "Swap",
-    url: "/GrimaceSwap/",
+    url: "/",
     cName: "nav-links",
     img: swap
   },
   {
     title: "Liquidity",
-    url: "/GrimaceSwap/liquidity",
+    url: "/liquidity",
     cName: "nav-links",
     img: liquidity
   },
