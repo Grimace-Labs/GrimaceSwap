@@ -7,18 +7,3 @@
   color: white;
   margin-top: auto;
 }
-/* @media (max-width: 900px) {
-  .footer {
-    .GRIMACE_SWAP {
- 
-  -moz-transform: matrix( 1.35058821513092,0,0,1.35058821513092,0,0);
-  -webkit-transform: matrix( 1.35058821513092,0,0,1.35058821513092,0,0);
-  -ms-transform: matrix( 1.35058821513092,0,0,1.35058821513092,0,0);
-  position: absolute;
-  left: 768.2px;
-  top: 570px;
-  z-index: 13;
-}
-
-  }
-} */
