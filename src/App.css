@@ -1,6 +1,6 @@
 body {
   background-color: rgba(23, 25, 66, 1);
-  background-image: url('img/dots.png');
+  background-image: url("img/dots.png");
   background-size: 100%;
   color: #555555;
 
@@ -73,5 +73,20 @@ h1 {
 
 .markdown {
   width: 80%;
+  margin: auto;
+}
+
+.CWPmain {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.CWPtext {
+  font-weight: 900;
+  margin-top: 20px;
+}
+
+.MuiContainer-root {
   margin: auto;
 }
