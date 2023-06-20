@@ -4,9 +4,6 @@
   justify-content: center;
   margin-top: 285px;
   text-align: center;
-}
-@media (max-width: 900px){
-  .footer {
-    margin-top:100px;
-  }
+  color: white;
+  margin-top: auto;
 }
