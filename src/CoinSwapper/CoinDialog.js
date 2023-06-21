@@ -16,13 +16,15 @@ import CoinButton from "./CoinButton";
 import { doesTokenExist } from "../ethereumFunctions";
 import PropTypes from "prop-types";
 import * as COLORS from "@material-ui/core/colors";
-
+import grimaceCoinImage from "../img/grimace_coin.png";
+import dogeCoinImage from "../img/Dogecoin.png";
+import wdCoinImage from "../img/DC.webp";
 const styles = (theme) => ({
   dialogContainer: {
     borderRadius: theme.spacing(2),
-    border: '3px solid rgba(113, 83, 217, 1)',
-    backgroundColor: '#2f2a70',
-    color: 'white'
+    border: "3px solid rgba(113, 83, 217, 1)",
+    backgroundColor: "#2f2a70",
+    color: "white",
   },
   titleSection: {
     padding: theme.spacing(2),
@@ -37,8 +39,8 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(2.5),
     paddingRight: theme.spacing(2.5),
     paddingBottom: theme.spacing(2),
-    '& .MuiOutlinedInput-input': {
-      color: 'white',
+    "& .MuiOutlinedInput-input": {
+      color: "white",
     },
   },
   coinList: {
@@ -53,8 +55,8 @@ const styles = (theme) => ({
     overflow: "hidden",
   },
   close: {
-    color: 'white'
-  }
+    color: "white",
+  },
 });
 
 const useStyles = makeStyles(styles);
@@ -78,7 +80,11 @@ const DialogTitle = withStyles(styles)((props) => {
           {children}
         </Typography>
         {onClose ? (
-          <IconButton className={classes.close} aria-label="close" onClick={onClose}>
+          <IconButton
+            className={classes.close}
+            aria-label="close"
+            onClick={onClose}
+          >
             <CloseIcon />
           </IconButton>
         ) : null}
@@ -130,7 +136,16 @@ export default function CoinDialog(props) {
     setAddress("");
     onClose(value);
   };
+  const coinImages = {
+    Grimace: grimaceCoinImage,
+    DogeCoin: dogeCoinImage,
+    Doge: wdCoinImage,
+  };
 
+  // Получаем ссылку на изображение по символу монеты
+  const getImageByName = (name) => {
+    return coinImages[name] || "";
+  };
   return (
     <Dialog
       open={open}
@@ -166,6 +181,7 @@ export default function CoinDialog(props) {
                   <CoinButton
                     coinName={coin.name}
                     coinAbbr={coin.abbr}
+                    coinImage={getImageByName(coin.name)}
                     onClick={() => exit(coin.address)}
                   />
                 </Grid>

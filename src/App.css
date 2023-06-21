@@ -90,3 +90,29 @@ h1 {
 .MuiContainer-root {
   margin: auto;
 }
+
+.btnswap {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-size: 14px;
+  color: #ffffff;
+  background: #222042;
+  border-radius: 20px;
+  padding: 8px 12px;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.textswap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: #d0d0d0;
+}
