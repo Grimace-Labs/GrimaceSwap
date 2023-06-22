@@ -18,9 +18,10 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.6,
   },
   coinImage: {
-    width: "24px", // Задайте желаемую ширину изображения
-    height: "24px", // Задайте желаемую высоту изображения
-    marginRight: theme.spacing(1), // Добавлено для отступа между изображением и названием монеты
+    width: "24px",
+    height: "24px",
+    marginRight: theme.spacing(1),
+    borderRadius: "50%",
   },
 }));
 

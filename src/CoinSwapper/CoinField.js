@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "10px",
   },
   coinImage: {
+    borderRadius: "50%",
     width: "24px",
     height: "24px",
     marginRight: theme.spacing(1),

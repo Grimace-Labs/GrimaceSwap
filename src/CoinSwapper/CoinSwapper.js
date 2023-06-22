@@ -493,7 +493,7 @@ function CoinSwapper(props) {
               <Typography variant="h5" className={classes.title}>
                 Swap
               </Typography>
-              <button item md={12} xs={2} className="btnswap">
+              {/* <button item md={12} xs={2} className="btnswap">
                 Slippage: 10%
                 <svg
                   width="18"
@@ -509,13 +509,12 @@ function CoinSwapper(props) {
                     fill="white"
                   />
                 </svg>
-              </button>
+              </button> */}
             </Grid>
 
             <Grid container direction="column" alignItems="center" spacing={2}>
               <Grid item xs={12} className={classes.fullWidth}>
                 <CoinField
-                  imagePatch="../img/grimace_coin.png"
                   activeField={true}
                   value={field1Value}
                   onClick={() => setDialog1Open(true)}
@@ -534,7 +533,6 @@ function CoinSwapper(props) {
 
               <Grid item xs={12} className={classes.fullWidth}>
                 <CoinField
-                  imagePath="../img/grimace_coin.png"
                   activeField={false}
                   value={field2Value}
                   onClick={() => setDialog2Open(true)}
