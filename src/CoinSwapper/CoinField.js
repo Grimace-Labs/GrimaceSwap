@@ -1,14 +1,23 @@
 import React from "react";
-import { Fab, Grid, InputBase, makeStyles,Typography } from "@material-ui/core";
+import {
+  Fab,
+  Grid,
+  InputBase,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PropTypes from "prop-types";
 import * as COLORS from "@material-ui/core/colors";
+import grimaceCoinImage from "../img/grimace_coin.png";
+import dogeCoinImage from "../img/Dogecoin.png";
+import wdCoinImage from "../img/DC.webp";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(1),
     minHeight: "80px",
-    backgroundColor: '#1A1928',
+    backgroundColor: "#1A1928",
     borderRadius: theme.spacing(2),
   },
   container_input: {
@@ -32,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     zIndex: "0",
-    background: 'transparent',
-    color: 'white',
-    boxShadow: 'none',
+    background: "transparent",
+    color: "white",
+    boxShadow: "none",
     "&:hover, &$focusVisible": {
-      backgroundColor: 'rgba(113, 83, 217, 1)',
+      backgroundColor: "rgba(113, 83, 217, 1)",
     },
   },
   input: {
@@ -45,12 +54,18 @@ const useStyles = makeStyles((theme) => ({
   },
   inputBase: {
     textAlign: "right",
-    color: 'white',
+    color: "white",
   },
   balance: {
     color: COLORS.grey[500],
-    marginLeft:'10px'
-  }
+    marginLeft: "10px",
+  },
+  coinImage: {
+    borderRadius: "50%",
+    width: "24px",
+    height: "24px",
+    marginRight: theme.spacing(1),
+  },
 }));
 
 CoinField.propTypes = {
@@ -74,6 +89,18 @@ export function RemoveLiquidityField1(props) {
 
   const classes = useStyles();
   const { onClick, symbol, value, onChange, activeField } = props;
+  const coinImages = {
+    GRIMACE: grimaceCoinImage,
+    DC: dogeCoinImage,
+    WDOGE: wdCoinImage,
+  };
+
+  // Получаем ссылку на изображение по символу монеты
+  const getImageBySymbol = (symbol) => {
+    return coinImages[symbol] || "";
+  };
+
+  const coinImage = getImageBySymbol(symbol);
   return (
     <div className={classes.container_blank}>
       <Grid
@@ -91,6 +118,8 @@ export function RemoveLiquidityField1(props) {
             onClick={onClick}
             className={classes.fab}
           >
+            {coinImage && <img src={coinImage} className={classes.coinImage} />}
+
             {symbol}
             <ExpandMoreIcon />
           </Fab>
@@ -108,7 +137,7 @@ export function RemoveLiquidityField1(props) {
             }}
           />
         </Grid>
-        
+
         {/* </div> */}
       </Grid>
     </div>
@@ -125,7 +154,18 @@ export function RemoveLiquidityField2(props) {
 
   const classes = useStyles();
   const { onClick, symbol } = props;
+  const coinImages = {
+    GRIMACE: grimaceCoinImage,
+    DC: dogeCoinImage,
+    WDOGE: wdCoinImage,
+  };
 
+  // Получаем ссылку на изображение по символу монеты
+  const getImageBySymbol = (symbol) => {
+    return coinImages[symbol] || "";
+  };
+
+  const coinImage = getImageBySymbol(symbol);
   return (
     <div className={classes.container_blank}>
       <Grid
@@ -143,6 +183,8 @@ export function RemoveLiquidityField2(props) {
             onClick={onClick}
             className={classes.fab}
           >
+            {coinImage && <img src={coinImage} className={classes.coinImage} />}
+
             {symbol}
             <ExpandMoreIcon />
           </Fab>
@@ -161,7 +203,19 @@ export default function CoinField(props) {
   //      activeField - boolean - Whether text can be entered into this field or not
 
   const classes = useStyles();
-  const { onClick, symbol, value, onChange, activeField,balance } = props;
+  const { onClick, symbol, value, onChange, activeField, balance } = props;
+  const coinImages = {
+    GRIMACE: grimaceCoinImage,
+    DC: dogeCoinImage,
+    WDOGE: wdCoinImage,
+  };
+
+  // Получаем ссылку на изображение по символу монеты
+  const getImageBySymbol = (symbol) => {
+    return coinImages[symbol] || "";
+  };
+
+  const coinImage = getImageBySymbol(symbol);
 
   return (
     <div className={classes.container}>
@@ -180,6 +234,7 @@ export default function CoinField(props) {
             onClick={onClick}
             className={classes.fab}
           >
+            {coinImage && <img src={coinImage} className={classes.coinImage} />}
             {symbol}
             <ExpandMoreIcon />
           </Fab>
